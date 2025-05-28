@@ -27,20 +27,20 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Build with Gradle
-      env:
-        GITHUB_API_KEY: ${{ secrets.GITHUB_API_KEY }}
-        SHODAN_API_KEY: ${{ secrets.SHODAN_API_KEY }}
-        HAVE_I_BEEN_PWNED_API_KEY: ${{ secrets.HAVE_I_BEEN_PWNED_API_KEY }}
-        VIRUS_TOTAL_API_KEY: ${{ secrets.VIRUS_TOTAL_API_KEY }}
-        PWNED_PASSWORDS_API_KEY: ${{ secrets.PWNED_PASSWORDS_API_KEY }}
-        CENSYS_API_KEY: ${{ secrets.CENSYS_API_KEY }}
-        BUILT_WITH_API_KEY: ${{ secrets.BUILT_WITH_API_KEY }}
-        SOCIAL_SEARCH_API_KEY: ${{ secrets.SOCIAL_SEARCH_API_KEY }}
-        PHONE_LOOKUP_API_KEY: ${{ secrets.PHONE_LOOKUP_API_KEY }}
       run: ./gradlew assembleRelease
+        env:
+          GITHUB_API_KEY: ${{ secrets.GITHUB_API_KEY }}
+          SHODAN_API_KEY: ${{ secrets.SHODAN_API_KEY }}
+          HAVE_I_BEEN_PWNED_API_KEY: ${{ secrets.HAVE_I_BEEN_PWNED_API_KEY }}
+          VIRUS_TOTAL_API_KEY: ${{ secrets.VIRUS_TOTAL_API_KEY }}
+          PWNED_PASSWORDS_API_KEY: ${{ secrets.PWNED_PASSWORDS_API_KEY }}
+          CENSYS_API_KEY: ${{ secrets.CENSYS_API_KEY }}
+          BUILT_WITH_API_KEY: ${{ secrets.BUILT_WITH_API_KEY }}
+          SOCIAL_SEARCH_API_KEY: ${{ secrets.SOCIAL_SEARCH_API_KEY }}
+          PHONE_LOOKUP_API_KEY: ${{ secrets.PHONE_LOOKUP_API_KEY }}
 
     - name: Upload APK
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: osint-tool-apk
         path: app/build/outputs/apk/release/app-release.apk
