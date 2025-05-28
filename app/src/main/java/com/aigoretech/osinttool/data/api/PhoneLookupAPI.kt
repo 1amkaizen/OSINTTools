@@ -1,24 +1,18 @@
-package com.example.osinttool.data.api
+fun lookupPhoneNumber(phoneNumber: String) {
+    val apiKey = BuildConfig.PHONE_LOOKUP_API_KEY
+    phoneLookupAPI.lookupPhoneNumber(phoneNumber, apiKey)
+        .enqueue(object : Callback<PhoneLookupResult> {
+            override fun onResponse(call: Call<PhoneLookupResult>, response: Response<PhoneLookupResult>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    // Handle successful response
+                } else {
+                    // Handle error
+                }
+            }
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
-import retrofit2.Call
-
-interface PhoneLookupAPI {
-    @GET("lookup")
-    fun lookupPhoneNumber(@Query("number") number: String, @Query("apikey") apiKey: String): Call<PhoneLookupResult>
-
-    companion object {
-        private const val BASE_URL = "https://api.phonelookup.com/"
-
-        fun create(): PhoneLookupAPI {
-            val retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
-                .build()
-            return retrofit.create(PhoneLookupAPI::class.java)
-        }
-    }
+            override fun onFailure(call: Call<PhoneLookupResult>, t: Throwable) {
+                // Handle failure
+            }
+        })
 }
